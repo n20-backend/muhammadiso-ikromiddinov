@@ -1,5 +1,10 @@
 import express from 'express';
-import taskrouter from './src/routes/tasks.js';
+import taskrouter from './routes/tasks.js';
+import dotenv from 'dotenv';
+
+
+dotenv.config();
+
 
 const app = express();
 const PORT = 3000;
