@@ -1,12 +1,12 @@
 import express from 'express';
-import connection from '../db.js'; 
+import connection from '../db/db.js'; 
 
 const router = express.Router();
 
 // Foydalanuvchi qo'shish (Create)
 router.post('/', (req, res) => {
     const { name, email } = req.body;
-    const query = 'INSERT INTO users (name, email) VALUES (?, ?)';
+    const query = 'INSERT INTO user1 (name, email) VALUES (?, ?)';
     connection.query(query, [name, email], (err, results) => {
         if (err) {
             console.error('Foydalanuvchi qo\'shishda xatolik:', err);
@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
 
 // Foydalanuvchilarni o'qish (Read)
 router.get('/', (req, res) => {
-    const query = 'SELECT * FROM users';
+    const query = 'SELECT * FROM user1';
     connection.query(query, (err, results) => {
         if (err) {
             console.error('Foydalanuvchilarni olishda xatolik:', err);
@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 router.put('/:id', (req, res) => {
     const { id } = req.params;
     const { name, email } = req.body;
-    const query = 'UPDATE users SET name = ?, email = ? WHERE id = ?';
+    const query = 'UPDATE user1 SET name = ?, email = ? WHERE id = ?';
     connection.query(query, [name, email, id], (err, results) => {
         if (err) {
             console.error('Foydalanuvchi yangilashda xatolik:', err);
@@ -45,7 +45,7 @@ router.put('/:id', (req, res) => {
 // Foydalanuvchini o'chirish (Delete)
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
-    const query = 'DELETE FROM users WHERE id = ?';
+    const query = 'DELETE FROM user1 WHERE id = ?';
     connection.query(query, [id], (err, results) => {
         if (err) {
             console.error('Foydalanuvchi o\'chirishda xatolik:', err);

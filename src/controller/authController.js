@@ -10,7 +10,7 @@ export const register = async (req, res) => {
             return res.status(400).json({ message: 'Bunday foydalanuvchi mavjud' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({
+        const user = new user({
             email,
             password: hashedPassword,
         });
