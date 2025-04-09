@@ -10,10 +10,19 @@ CREATE TABLE Project(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Project jadvaliga misol qiymatlar qo'shish
+INSERT INTO Project (name, description, status, created_at, updated_at)
+VALUES
+  ('Project A', 'Description of Project A', 'active', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Project B', 'Description of Project B', 'active', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Project C', 'Description of Project C', 'completed', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Project D', 'Description of Project D', 'archived', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
 
 CREATE TYPE task_enum as enum('pending', 'in_progress', 'completed', 'archived');
 CREATE TYPE priority_enum as enum('low', 'medium', 'high');
-CREATE TABLE Task (
+CREATE TABLE task (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
@@ -25,6 +34,12 @@ CREATE TABLE Task (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO task (title, description, status, priority, due_date, assigned_to, project_id, created_at, updated_at)
+VALUES
+  ('Task 1', 'Task 1 description', 'pending', 'medium', '2025-04-20', uuid_generate_v4(), uuid_generate_v4(), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Task 2', 'Task 2 description', 'in_progress', 'high', '2025-04-22', uuid_generate_v4(), uuid_generate_v4(), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Task 3', 'Task 3 description', 'completed', 'low', '2025-04-25', uuid_generate_v4(), uuid_generate_v4(), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 CREATE TYPE user_enum as enum('user', 'admin', 'manager');
 CREATE TABLE user1 (
@@ -53,3 +68,9 @@ CREATE TABLE Comment(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO Comment ( content, created_at, updated_at)
+VALUES
+  ('This is a comment on task 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('This is a comment on task 2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('This is a comment on task 3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

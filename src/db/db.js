@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
-import pg from 'pg';
-const { Pool } = pg;
+import pkg from 'pg';  
+const { Pool } = pkg;  
 
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -21,4 +21,4 @@ pool.connect((err) => {
     }
 });
 
-export default pool;
+export { pool };  

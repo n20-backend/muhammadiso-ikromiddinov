@@ -1,54 +1,55 @@
-import task from '../models/Task.js';
-import taskrouter  from '../routes/TasksRouter.js';
+import * as taskService from '../services/taskServices.js';
 
 export const getAllTasks = async (req, res) => {
   try {
-    const tasks = await Task.find();
+    const tasks = await taskService.getAllTasks();
     res.status(200).json(tasks);
   } catch (err) {
-    res.status(500).json({ error: 'Task yo`q' });
+    res.status(500).json({ error: 'Tasklarni olishda xatolik yuz berdi' });
   }
 };
 
 export const createTask = async (req, res) => {
   try {
-    const task = new task(req.body);
-    await task.save();
+    const task = await taskService.createTask(req.body);
     res.status(201).json(task);
   } catch (err) {
-    res.status(400).json({ error: 'Task yaratilmadi' });
+    res.status(400).json({ error: 'Task yaratishda xatolik' });
   }
 };
 
 export const getTaskByOne = async (req, res) => {
   try {
-    const task = await task.findById(req.params.id);
-    if (!task) return res.status(404).json({ error: 'Task topilmadi' });
+    const task = await taskService.getTaskById(req.params.id);
+    if (!task) {
+      return res.status(404).json({ error: 'Task topilmadi' });
+    }
     res.json(task);
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Task olishda server xatoligi' });
   }
 };
 
 export const updateTask = async (req, res) => {
   try {
-    const task = await task.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    if (!task) return res.status(404).json({ error: 'Task topilmadi' });
+    const task = await taskService.updateTask(req.params.id, req.body);
+    if (!task) {
+      return res.status(404).json({ error: 'Task topilmadi' });
+    }
     res.json(task);
   } catch (err) {
-    res.status(400).json({ error: 'Yangilanmadi' });
+    res.status(400).json({ error: 'Task yangilanmadi' });
   }
 };
 
 export const deleteTask = async (req, res) => {
   try {
-    const task = await task.findByIdAndDelete(req.params.id);
-    if (!task) return res.status(404).json({ error: 'Task topilmadi' });
-    res.json({ message: 'Task o`chirildi' });
+    const task = await taskService.deleteTask(req.params.id);
+    if (!task) {
+      return res.status(404).json({ error: 'Task topilmadi' });
+    }
+    res.json({ message: 'Task o‘chirildi' });
   } catch (err) {
-    res.status(500).json({ error: 'Task o`chirilmadi' });
+    res.status(500).json({ error: 'Task o‘chirilmadi' });
   }
 };

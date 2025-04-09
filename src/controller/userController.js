@@ -1,8 +1,8 @@
-import User from '../models/User.js';
+import * as userservices from "../services/userService.js"
 
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await User.findAll();
+        const users = await userservices.getAllUsers();
         res.status(200).json(users);
         
     } catch (error) {
@@ -12,7 +12,7 @@ export const getAllUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
     try {
-        const user = await user.findById(id);
+        const user = await userservices.getUserById;
         if (!user) {
             return res.status(404).json({ message: 'Foydalanuvchi topilmadi' });
         }
@@ -22,8 +22,8 @@ export const getUserById = async (req, res) => {
 };
 export const createUser = async (req, res) => {
     try {
-        const newUser = new User(req.body);
-        await newUser.save();
+        const {name, email} = req.body;
+        const newUser = await userservices.createUser({ name, email });
         res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ message: 'Foydalanuvchi yaratishda xatolik yuz berdi' });
@@ -35,8 +35,8 @@ export const updateUser = async (req, res) => {
         const { id } = req.params;
         const updatedData = req.body;
 
-        const user = await User.findByIdAndUpdate(id, updatedData, { new: true });
-        if (!user) {
+        const user = await userservices.updateUser(id, updatedData);
+        if (!updatedUser) {
             return res.status(404).json({ message: 'Foydalanuvchi topilmadi' });
         }
 
@@ -48,8 +48,8 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     try {
-        const user = await user.findByIdAndDelete(req.params.id);
-        if (!user) {
+        const user = await userservices.deleteUser(req.params.id);
+        if (!deleteUser) {
             return res.status(404).json({ message: 'Foydalanuvchi topilmadi' });
         }
         res.status(200).json({ message: 'Foydalanuvchi o\'chirildi' });
