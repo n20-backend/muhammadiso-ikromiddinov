@@ -1,4 +1,4 @@
-import * as taskService from '../services/TasksServices.js';
+import * as taskService from '../services/taskServices.js';
 
 export const getAllTasks = async (req, res) => {
   try {
