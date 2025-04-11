@@ -22,10 +22,10 @@ export const getAllUsers = async () => {
 }
 
 
-export const getById = async () => {
+export const getById = async (id) => {
     try {
         const result = await client.query('select * from user1 where id = $1', [id]);
-        return result.rows;
+        return result.rows[0];
     } catch (error) {
         console.log(error, "Xatolik");
     }
