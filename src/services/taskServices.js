@@ -1,6 +1,6 @@
 import { pool} from '../db/db.js';  
 
-const TaskService = {
+export const TaskService = {
   // Yangi task yaratish
   async createTask({ title, description, status, user_id }) {
     try {
@@ -70,4 +70,6 @@ const TaskService = {
   }
 };
 
-export default TaskService;
+
+
+//allskda
