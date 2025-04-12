@@ -8,13 +8,15 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-app.get("/", (req, res) => {
-    res.send("Assalomu alaykum ")
-});
+
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.send("Assalomu alaykum ")
+});
 
 app.use("/users", userRouter);
 app.use("/projects", projectRouter);
